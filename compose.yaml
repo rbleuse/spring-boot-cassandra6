@@ -1,0 +1,10 @@
+services:
+  cassandra:
+    image: rbleuse/apache-cassandra:6.0-alpha1
+    volumes:
+      - ./dev-tools/cassandra.yaml:/etc/cassandra/cassandra.yaml
+    environment:
+      - 'CASSANDRA_DC=dc1'
+      - 'CASSANDRA_ENDPOINT_SNITCH=GossipingPropertyFileSnitch'
+    ports:
+      - '9042:9042'

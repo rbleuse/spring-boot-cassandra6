@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: spring-boot-cassandra6
+  cassandra:
+    contact-points: localhost:9042
+    local-datacenter: dc1
+    keyspace-name: spring_boot_cassandra6
+    schema-action: none
+    connection:
+      init-query-timeout: 5s
+    request:
+      timeout: 5s
