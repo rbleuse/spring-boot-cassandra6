@@ -30,6 +30,8 @@ dependencies {
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
     testImplementation("org.testcontainers:testcontainers-cassandra")
     testImplementation("org.testcontainers:testcontainers-junit-jupiter")
+    testImplementation("io.kotest:kotest-runner-junit6:6.1.11")
+    testImplementation("io.kotest:kotest-assertions-core-jvm:6.1.11")
 
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }

@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean
 import org.testcontainers.cassandra.CassandraContainer
 import org.testcontainers.utility.DockerImageName
 import org.testcontainers.utility.MountableFile
+import java.time.Duration
 
 @TestConfiguration(proxyBeanMethods = false)
 class TestcontainersConfiguration {
@@ -23,5 +24,6 @@ class TestcontainersConfiguration {
 			MountableFile.forHostPath("dev-tools/cassandra.yaml"),
 			"/etc/cassandra/cassandra.yaml"
 		).withInitScript("init.cql")
+		.withStartupTimeout(Duration.ofMinutes(2))
 	}
 }
