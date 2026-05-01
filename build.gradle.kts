@@ -19,13 +19,20 @@ repositories {
     mavenCentral()
 }
 
+extra["flyway.version"] = "12.5.0"
+
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-cassandra")
+    implementation("org.springframework.boot:spring-boot-starter-flyway")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
+    implementation("org.flywaydb:flyway-database-cassandra")
+    // implementation("org.flywaydb:flyway-database-nc-cassandra:${properties["flyway.version"]}")
+    implementation("com.ing.data:cassandra-jdbc-wrapper:4.13.0")
 
     developmentOnly("org.springframework.boot:spring-boot-docker-compose")
 
     testImplementation("org.springframework.boot:spring-boot-starter-data-cassandra-test")
+    testImplementation("org.springframework.boot:spring-boot-starter-flyway-test")
     testImplementation("org.springframework.boot:spring-boot-testcontainers")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
     testImplementation("org.testcontainers:testcontainers-cassandra")

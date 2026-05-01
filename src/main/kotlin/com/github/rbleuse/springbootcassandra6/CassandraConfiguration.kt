@@ -22,7 +22,7 @@ class CassandraConfiguration {
             val cql = CreateKeyspaceCqlGenerator
                 .toCql(CreateKeyspaceSpecification.createKeyspace(keyspaceName).ifNotExists())
             session.execute(
-                SimpleStatement.newInstance(cql).setTimeout(Duration.ofSeconds(30))
+                SimpleStatement.newInstance(cql).setTimeout(Duration.ofSeconds(5))
             )
         }
 

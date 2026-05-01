@@ -11,10 +11,13 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.data.cassandra.test.autoconfigure.DataCassandraTest
+import org.springframework.boot.flyway.autoconfigure.FlywayAutoConfiguration
 import org.springframework.context.annotation.Import
+import org.springframework.test.context.ContextConfiguration
 
 @DataCassandraTest
-@Import(TestcontainersConfiguration::class)
+@ContextConfiguration(initializers = [CassandraContainerInitializer::class])
+@Import(CassandraConfiguration::class, FlywayAutoConfiguration::class)
 class SpringBootCassandra6ApplicationTests @Autowired constructor(
     private val cqlSession: CqlSession
 ) {
@@ -44,12 +47,12 @@ class SpringBootCassandra6ApplicationTests @Autowired constructor(
         shouldThrowExactly<InvalidQueryException> {
             cqlSession.execute(
                 SimpleStatement.newInstance(
-                    """
-                BEGIN TRANSACTION
-                INSERT INTO users_by_country (country, user_id) VALUES ('USA', 123e4567-e89b-12d3-a456-426614174000);
-                INSERT INTO users_by_country (country, user_id) VALUES ('FRANCE', null);
-                COMMIT TRANSACTION;
-            """.trimIndent()
+                """
+                    BEGIN TRANSACTION
+                    INSERT INTO users_by_country (country, user_id) VALUES ('USA', 123e4567-e89b-12d3-a456-426614174000);
+                    INSERT INTO users_by_country (country, user_id) VALUES ('FRANCE', null);
+                    COMMIT TRANSACTION;
+                """.trimIndent()
                 ).setConsistencyLevel(ConsistencyLevel.QUORUM)
             )
         }.shouldHaveMessage("Column value does not satisfy value constraint for column 'user_id' as it is null.")

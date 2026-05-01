@@ -1,6 +1,9 @@
 spring:
   application:
     name: spring-boot-cassandra6
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.jdbc.autoconfigure.DataSourceAutoConfiguration
   cassandra:
     contact-points: localhost:9042
     local-datacenter: dc1
@@ -10,3 +13,7 @@ spring:
       init-query-timeout: 5s
     request:
       timeout: 5s
+  flyway:
+    url: jdbc:cassandra://localhost:9042/spring_boot_cassandra6?localdatacenter=dc1&requesttimeout=5000
+    driver-class-name: com.ing.data.cassandra.jdbc.CassandraDriver
+    sql-migration-suffixes: .cql
