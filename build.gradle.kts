@@ -27,7 +27,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.flywaydb:flyway-database-cassandra")
     // implementation("org.flywaydb:flyway-database-nc-cassandra:${properties["flyway.version"]}")
-    implementation("com.ing.data:cassandra-jdbc-wrapper:4.13.0")
+    implementation("com.ing.data:cassandra-jdbc-wrapper:4.16.3")
 
     developmentOnly("org.springframework.boot:spring-boot-docker-compose")
 
