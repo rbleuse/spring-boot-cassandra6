@@ -11,13 +11,12 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.data.cassandra.test.autoconfigure.DataCassandraTest
-import org.springframework.boot.flyway.autoconfigure.FlywayAutoConfiguration
 import org.springframework.context.annotation.Import
 import org.springframework.test.context.ContextConfiguration
 
 @DataCassandraTest
 @ContextConfiguration(initializers = [CassandraContainerInitializer::class])
-@Import(CassandraConfiguration::class, FlywayAutoConfiguration::class)
+@Import(CassandraConfiguration::class, FlywayConfiguration::class)
 class SpringBootCassandra6ApplicationTests @Autowired constructor(
     private val cqlSession: CqlSession
 ) {

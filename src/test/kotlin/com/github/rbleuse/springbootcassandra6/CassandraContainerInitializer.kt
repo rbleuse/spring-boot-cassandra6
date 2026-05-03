@@ -26,7 +26,7 @@ object CassandraContainerInitializer : ApplicationContextInitializer<Configurabl
         val contactPoint = "${cassandraContainer.contactPoint.hostName}:${cassandraContainer.contactPoint.port}"
         val keyspace = applicationContext.environment.getRequiredProperty("spring.cassandra.keyspace-name")
         val localDc = cassandraContainer.localDatacenter
-        val flywayUrl = "jdbc:cassandra://$contactPoint/$keyspace?localdatacenter=$localDc&requesttimeout=5000"
+        val flywayUrl = "cassandra://$contactPoint/$keyspace?localdatacenter=$localDc"
 
         TestPropertyValues.of(
             mapOf(
