@@ -4,6 +4,7 @@ import com.datastax.oss.driver.api.core.ConsistencyLevel
 import com.datastax.oss.driver.api.core.CqlSession
 import com.datastax.oss.driver.api.core.cql.SimpleStatement
 import com.datastax.oss.driver.api.core.servererrors.InvalidQueryException
+import io.github.rbleuse.flywaync.FlywayNcAutoConfiguration
 import io.kotest.assertions.throwables.shouldThrowExactly
 import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.throwable.shouldHaveMessage
@@ -16,7 +17,7 @@ import org.springframework.test.context.ContextConfiguration
 
 @DataCassandraTest
 @ContextConfiguration(initializers = [CassandraContainerInitializer::class])
-@Import(CassandraConfiguration::class, FlywayConfiguration::class)
+@Import(CassandraConfiguration::class, FlywayNcAutoConfiguration::class)
 class SpringBootCassandra6ApplicationTests @Autowired constructor(
     private val cqlSession: CqlSession
 ) {
