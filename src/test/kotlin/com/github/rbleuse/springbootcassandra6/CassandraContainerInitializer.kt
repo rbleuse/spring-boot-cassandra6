@@ -32,7 +32,7 @@ object CassandraContainerInitializer : ApplicationContextInitializer<Configurabl
             mapOf(
                 "spring.cassandra.contact-points" to contactPoint,
                 "spring.cassandra.local-datacenter" to localDc,
-                "spring.flyway.url" to flywayUrl,
+                "spring.flyway-nc.url" to flywayUrl,
             )
         ).applyTo(applicationContext.environment)
     }

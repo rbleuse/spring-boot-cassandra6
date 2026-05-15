@@ -17,16 +17,26 @@ java {
 
 repositories {
     mavenCentral()
+    maven {
+        name = "centralSnapshots"
+        url = uri("https://central.sonatype.com/repository/maven-snapshots/")
+        mavenContent { snapshotsOnly() }
+    }
 }
 
-extra["flyway.version"] = "12.5.0"
+extra["flyway.version"] = "12.6.1"
+
+dependencyManagement {
+    imports {
+        mavenBom("io.github.rbleuse:spring-boot-starter-flyway-nc-dependencies:1.0.0-SNAPSHOT")
+    }
+}
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-cassandra")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
-    implementation("org.flywaydb:flyway-database-nc-cassandra:${properties["flyway.version"]}")
-    implementation("org.flywaydb:flyway-verb-migrate:${properties["flyway.version"]}")
-    implementation("org.flywaydb:flyway-nc-scanners:${properties["flyway.version"]}")
+    implementation("io.github.rbleuse:spring-boot-starter-flyway-nc")
+    implementation("org.flywaydb:flyway-database-nc-cassandra")
 
     developmentOnly("org.springframework.boot:spring-boot-docker-compose")
 
@@ -35,7 +45,6 @@ dependencies {
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
     testImplementation("org.testcontainers:testcontainers-cassandra")
     testImplementation("org.testcontainers:testcontainers-junit-jupiter")
-    testImplementation("io.kotest:kotest-runner-junit6:6.1.11")
     testImplementation("io.kotest:kotest-assertions-core-jvm:6.1.11")
 
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")

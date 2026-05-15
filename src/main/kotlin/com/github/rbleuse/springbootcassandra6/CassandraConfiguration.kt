@@ -3,7 +3,9 @@ package com.github.rbleuse.springbootcassandra6
 import com.datastax.oss.driver.api.core.CqlSession
 import com.datastax.oss.driver.api.core.CqlSessionBuilder
 import com.datastax.oss.driver.api.core.cql.SimpleStatement
+import io.github.rbleuse.flywaync.FlywayNcMigrationInitializer
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.boot.autoconfigure.AbstractDependsOnBeanFactoryPostProcessor
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.data.cassandra.core.cql.generator.CreateKeyspaceCqlGenerator
@@ -11,8 +13,10 @@ import org.springframework.data.cassandra.core.cql.keyspace.CreateKeyspaceSpecif
 import java.time.Duration
 
 @Configuration
-class CassandraConfiguration {
-
+class CassandraConfiguration : AbstractDependsOnBeanFactoryPostProcessor(
+    FlywayNcMigrationInitializer::class.java,
+    CqlSession::class.java,
+) {
     @Bean
     fun cqlSession(
         builder: CqlSessionBuilder,
